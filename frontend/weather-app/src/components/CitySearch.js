@@ -9,8 +9,6 @@ import Box from '@mui/material/Box';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import WeatherInfo from './WeatherInfo';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 
 
@@ -99,11 +97,16 @@ const CitySearch = () => {
 
     return (
         <>
-            <Stack
-                direction="row"
-                divider={<Divider orientation="vertical" flexItem />}
-                spacing={2}
+
+            <Grid
+                container
+                direction="column"
+                justifyContent="space-around"
+                alignItems="flex-start"
             >
+                <Grid container direction="column" alignItems="flex-end" style={{ padding: 10 }}>
+                    <Button variant="outlined" size="small" onClick={handleLocationClick}> <MyLocationIcon /> </Button>
+                </Grid>
 
                 <Autocomplete
                     id="city-search"
@@ -117,7 +120,7 @@ const CitySearch = () => {
                         setSearchQuery(newInputValue);
                     }}
                     options={suggestions}
-                    sx={{ width: 300 }}
+                    fullWidth={true}
                     renderOption={(props, option) => {
                         const matches = match(option.name, searchQuery, { insideWords: true });
                         const parts = parse(option.name, matches);
@@ -156,13 +159,12 @@ const CitySearch = () => {
                     filterSelectedOptions
                     noOptionsText="No cities found"
                 />
-
-                <Button variant="outlined" onClick={handleLocationClick}> <MyLocationIcon /> </Button>
-            </Stack>
-
-            {value && (
-                <WeatherInfo longitude={value.lng} latitude={value.lat} />
-            )}
+            </Grid>
+            {
+                value && (
+                    <WeatherInfo longitude={value.lng} latitude={value.lat} />
+                )
+            }
         </>
     );
 };

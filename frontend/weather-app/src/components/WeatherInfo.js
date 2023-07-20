@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import CurrentWeatherBox from './CurrentWeatherBox';
 
 
 const WeatherInfo = (props) => {
@@ -39,21 +40,18 @@ const WeatherInfo = (props) => {
         };
         fetchWeather();
     }, [props.latitude, props.longitude]);
+
+
     return (
         <>
             {loading && <p>Loading...</p>}
             {error && <p>Error fetching weather: {error.toString()}</p>}
             {weather && (
                 <div>
-                    <Box sx={{ flexGrow: 1 }}>
+                    <Box>
 
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6} >
-                                <h5>Time Zone {weather.timezone}</h5>
-                            </Grid>
-                            <Grid item xs={12} sm={6} >
-                                <h5>Current Temperature {weather.current_weather.temperature}°C</h5>
-                            </Grid>
+                        <Grid sx={{ alignItems: 'center' }} item xs={12} sm={6} style={{ marginTop: 10 }}>
+                            <CurrentWeatherBox today_min_temperature={weather.daily.apparent_temperature_min[0]} today_max_temperature={weather.daily.apparent_temperature_max[0]} current_weather={weather.current_weather} />
                         </Grid>
                     </Box>
 

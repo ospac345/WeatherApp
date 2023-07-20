@@ -1,0 +1,89 @@
+.main-container-body-div {
+  
+}
+
+
+
+.weather-icon-background {
+  /* Set the position of the background sun or moon icon */
+  font-size: 60px;
+
+}
+
+.weather-icon {
+  font-size: 60px;
+  position: relative; /* Add relative positioning for the front icon */
+  z-index: 1; /* Ensure the front icon is above the background icon */
+}
+
+.icons-stack {
+  display: flex;
+  flex-direction: row; /* Stack the icons vertically */
+  align-items: center; /* Align the icons horizontally in the center */
+}
+
+
+.current-temp-number {
+  font-size: 50px;
+}
+
+.weather-text {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.weather-container.clear-sky {
+    background-color: #ffcc00; 
+    background: linear-gradient(to bottom, #d2e1ff, #f2ffa0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
+    border: 1px solid #82aaff;
+    border-radius: 4px;
+    padding: 10px;
+  }
+  
+  .weather-container.partly-cloudy {
+    background: linear-gradient(to bottom, #d2e1ff, #a0c4ff);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
+    border: 1px solid #82aaff;
+    border-radius: 4px;
+    padding: 10px;
+  }
+  
+  .weather-container.fog {
+    background-color: #d3d3d3; /* Example background color for fog */
+  }
+  
+  .weather-container.drizzle {
+    background-color: #7f7f7f; /* Example background color for drizzle */
+  }
+  
+  .weather-container.freezing-drizzle {
+    background-color: #b8b8b8; /* Example background color for freezing drizzle */
+  }
+  
+  /* Define background styles for other weather conditions similarly */
+.logo-parent-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    height: 60px;
+    width: 180px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-text {
+    font-size: 25px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  

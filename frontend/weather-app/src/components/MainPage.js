@@ -6,6 +6,7 @@ import '../styleSheets/WeatherIconStyles.css'
 
 function MainPage() {
 
+
     return (
 
         <>

@@ -51,7 +51,7 @@ const WeatherInfo = (props) => {
                     <Box>
 
                         <Grid sx={{ alignItems: 'center' }} item xs={12} sm={6} style={{ marginTop: 10 }}>
-                            <CurrentWeatherBox today_min_temperature={weather.daily.apparent_temperature_min[0]} today_max_temperature={weather.daily.apparent_temperature_max[0]} current_weather={weather.current_weather} />
+                            <CurrentWeatherBox today_min_temperature={weather.daily.apparent_temperature_min[0]} today_max_temperature={weather.daily.apparent_temperature_max[0]} current_weather={weather.current_weather} time_zone={weather.timezone} />
                         </Grid>
                     </Box>
 

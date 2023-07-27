@@ -12,9 +12,9 @@ function MainPage() {
         <>
             <div className='main-container-body-div'>
                 <Container maxWidth="sm" style={{ padding: 10 }}>
-                    <div class="logo-parent-box">
-                        <div class="logo">
-                            <span class="logo-text">WeatherWise</span>
+                    <div className="logo-parent-box">
+                        <div className="logo">
+                            <span className="logo-text">WeatherWise</span>
                         </div>
                     </div>
 

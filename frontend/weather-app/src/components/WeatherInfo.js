@@ -13,12 +13,12 @@ const WeatherInfo = (props) => {
         const fetchWeather = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:3001/api/weather', {
+                const response = await fetch('http://192.168.1.105:3001/api/weather', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ lat: props.latitude, lng: props.longitude }),
+                    body: JSON.stringify({ lat: props.latitude, lng: props.longitude, tempUnit: props.tempUnit }),
                 });
                 if (response.ok) {
                     const data = await response.json();
@@ -39,7 +39,7 @@ const WeatherInfo = (props) => {
             }
         };
         fetchWeather();
-    }, [props.latitude, props.longitude]);
+    }, [props.latitude, props.longitude, props.tempUnit]);
 
 
     return (
@@ -51,7 +51,7 @@ const WeatherInfo = (props) => {
                     <Box>
 
                         <Grid sx={{ alignItems: 'center' }} item xs={12} sm={6} style={{ marginTop: 10 }}>
-                            <CurrentWeatherBox today_min_temperature={weather.daily.apparent_temperature_min[0]} today_max_temperature={weather.daily.apparent_temperature_max[0]} current_weather={weather.current_weather} time_zone={weather.timezone} />
+                            <CurrentWeatherBox cityName={props.cityName} today_min_temperature={weather.daily.apparent_temperature_min[0]} today_max_temperature={weather.daily.apparent_temperature_max[0]} current_weather={weather.current_weather} time_zone={weather.timezone} />
                         </Grid>
                     </Box>
 

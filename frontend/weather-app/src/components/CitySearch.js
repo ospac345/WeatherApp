@@ -10,17 +10,23 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import WeatherInfo from './WeatherInfo';
 import Button from '@mui/material/Button';
+import TemperatureUnitComponent from "./TemperatureUnitComponent";
 
 
 const CitySearch = () => {
     const [value, setValue] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const [tempUnit, setTempUnit] = useState('celsius');
+
+    const changeTemperatureUnit = (tempUnitValue) => {
+        setTempUnit(tempUnitValue);
+    }
 
     useEffect(() => {
         const fetchSuggestions = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api', {
+                const response = await fetch('http://192.168.1.105:3001/api', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -63,7 +69,7 @@ const CitySearch = () => {
                 lng: longitude,
             };
 
-            fetch("http://localhost:3001/api/coords", {
+            fetch("http://192.168.1.105:3001/api/coords", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -90,23 +96,23 @@ const CitySearch = () => {
                 });
         }
         function error() {
+            alert("Unable to retrieve your location")
             console.log("Unable to retrieve your location");
         }
     };
 
-
     return (
         <>
-
             <Grid
                 container
                 direction="column"
                 justifyContent="space-around"
                 alignItems="flex-start"
             >
-                <Grid container direction="column" alignItems="flex-end" style={{ padding: 10 }}>
-                    <Button variant="outlined" size="small" onClick={handleLocationClick}> <MyLocationIcon /> </Button>
-                </Grid>
+                <div style={{ padding: 10, display: 'flex' }}>
+                    <TemperatureUnitComponent changeTemperatureUnit={changeTemperatureUnit} selectedUnit={tempUnit} />
+                    <Button variant="text" size="small" > <MyLocationIcon style={{ fontSize: '1.2rem' }} onClick={handleLocationClick} /> </Button>
+                </div>
 
                 <Autocomplete
                     id="city-search"
@@ -162,7 +168,7 @@ const CitySearch = () => {
             </Grid>
             {
                 value && (
-                    <WeatherInfo longitude={value.lng} latitude={value.lat} />
+                    <WeatherInfo cityName={value.toponymName + ', ' + value.countryName} longitude={value.lng} latitude={value.lat} tempUnit={tempUnit} />
                 )
             }
         </>

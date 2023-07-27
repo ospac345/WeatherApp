@@ -18,8 +18,15 @@
 .current-weather-box-digital-clock {
   border: 1px solid #fefefe;
   padding: 2px;
-  
-  color: #e59500;
+  color: #333333;
+  font-size: 10px;
+  font-family: 'Orbitron';
+  width: 60px;
+}
+.current-weather-box-digital-clock-GMT-box {
+  border: 1px solid #fefefe;
+  padding: 2px;
+  color: #333333;
   font-size: 10px;
   font-family: 'Orbitron';
 }
@@ -32,7 +39,7 @@
 .icons-stack {
   display: flex;
   flex-direction: column; /* Stack the icons vertically */
-  align-items: center; /* Align the icons horizontally in the center */
+  align-items: flex-start; /* Align the icons horizontally in the center */
 }
 
 
@@ -47,49 +54,17 @@
 
 /* Styles for day theme */
 .weather-container.day {
-  background-color: #e1f5fe; /* Light blue background for day theme */
-  color: #333; /* Dark text color for day theme */
+  background: linear-gradient(135deg, #e5f0fa, #bcd4f8 70%); /* Gradient background for day clear sky */
+  color: #333; /* Dark text color for day clear sky */
 }
 
 /* Styles for night theme */
 .weather-container.night {
-  background-color: #1a2436; /* Dark blue background for night theme */
-  color: #f0f0f0; /* Light text color for night theme */
-}
-
-.weather-container.day.clear-sky {
-  background: linear-gradient(135deg, #b3d1ff, #eff7ff 70%); /* Gradient background for day clear sky */
-  color: #333; /* Dark text color for day clear sky */
-}
-
-.weather-container.day.clear-sky .icon {
-  color: #f9cc75; /* Yellowish shade for icon during the day */
+  background: linear-gradient(135deg, #aeaec0, #1a1a33 70%); /* Darker gradient background for night */
+  color: #fff; /* Light text color for night */
 }
 
   
-  .weather-container.day.partly-cloudy {
-    background: linear-gradient(135deg, #b3d1ff, #b3d1ff 50%, #f0f4f8 50%); /* Gradient background */
-    color: #444; /* Slightly darker text color */
-  }
-
-  .weather-container.night.partly-cloudy {
-    background: linear-gradient(135deg, #040a15, #0a1929 50%, #040a15 50%); /* Gradient background */
-    color: #c0c8d9; /* Light gray text color */
-  }
-  
-  .weather-container.fog {
-    background-color: #d3d3d3; /* Example background color for fog */
-  }
-  
-  .weather-container.drizzle {
-    background-color: #7f7f7f; /* Example background color for drizzle */
-  }
-  
-  .weather-container.freezing-drizzle {
-    background-color: #b8b8b8; /* Example background color for freezing drizzle */
-  }
-  
-  /* Define background styles for other weather conditions similarly */
 .logo-parent-box {
   display: flex;
   align-items: center;
@@ -101,8 +76,8 @@
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #4e54c8, #8f94fb);
-    height: 60px;
-    width: 180px;
+    height: 45px;
+    width: 165px;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
@@ -113,5 +88,5 @@
     color: #ffffff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
-  
+
   

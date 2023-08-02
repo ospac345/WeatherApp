@@ -15,6 +15,14 @@
   background-color: #e59500;
 }
 
+.temp-unit-location-icon-box {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+}
+
 .current-weather-box-digital-clock {
   border: 1px solid #fefefe;
   padding: 2px;
@@ -90,3 +98,50 @@
   }
 
   
+ /* .compass styles */
+.compass {
+  position: relative;
+  width: 100%;
+  /* Replace $elementWidth with the desired value in pixels */
+  height: 70px /* $elementWidth */;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.compass > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Apply opacity(0.4) filter to SVG elements that don't have the class "will-transform" */
+.compass svg:not(.will-transform) {
+  filter: opacity(0.4);
+}
+
+/* .compass-content styles */
+.compass-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* Replace $elementWidth with the desired value in pixels */
+  font-size:  15px;
+  font-weight: bold;
+}
+
+.compass-content .unit {
+  /* Replace $elementWidth with the desired value in pixels */
+  font-size: 10px;
+  font-weight: 100;
+}
+

@@ -109,9 +109,9 @@ const CitySearch = () => {
                 justifyContent="space-around"
                 alignItems="flex-start"
             >
-                <div style={{ padding: 10, display: 'flex' }}>
+                <div className='temp-unit-location-icon-box'>
                     <TemperatureUnitComponent changeTemperatureUnit={changeTemperatureUnit} selectedUnit={tempUnit} />
-                    <Button variant="text" size="small" > <MyLocationIcon style={{ fontSize: '1.2rem' }} onClick={handleLocationClick} /> </Button>
+                    <div style={{ display: 'flex' }}><Button variant="text" size="small" > <MyLocationIcon style={{ fontSize: 18 }} onClick={handleLocationClick} /> </Button> </div>
                 </div>
 
                 <Autocomplete

@@ -4,6 +4,7 @@ import { Grid } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import LocalTimeComponent from './LocalTimeComponent';
 import InterpretWeatherCode from './InterpretWeatherCode';
+import WindCompass from './WindCompass';
 
 const CurrentWeatherBox = ({ current_weather, today_min_temperature, today_max_temperature, time_zone, cityName }) => {
 
@@ -31,6 +32,7 @@ const CurrentWeatherBox = ({ current_weather, today_min_temperature, today_max_t
                         <span>H:{today_max_temperature}° </span>
                         <span>L:{today_min_temperature}°</span>
                     </div>
+                    <WindCompass windDirection={current_weather.winddirection} windSpeed={current_weather.windspeed} />
                 </div>
             </Grid>
         </div>

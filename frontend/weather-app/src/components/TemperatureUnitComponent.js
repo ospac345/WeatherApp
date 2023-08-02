@@ -1,5 +1,5 @@
 
-
+import Button from '@mui/material/Button';
 
 
 
@@ -7,9 +7,10 @@ const TemperatureUnitComponent = ({ changeTemperatureUnit, selectedUnit }) => {
 
     return (
         <div className="temperature-unit" style={{ display: 'flex' }}>
-            <div style={{ paddingRight: 10, fontWeight: selectedUnit === 'celsius' ? 'bold' : 'normal' }} onClick={() => changeTemperatureUnit('celsius')}>C</div>
+            <Button color="secondary" size="small" style={{ fontWeight: selectedUnit === 'celsius' ? 'bold' : 'normal' }} onClick={() => changeTemperatureUnit('celsius')}>C</Button>
             <span>|</span>
-            <div style={{ paddingLeft: 10, fontWeight: selectedUnit === 'fahrenheit' ? 'bold' : 'normal' }} onClick={() => changeTemperatureUnit('fahrenheit')}>F</div>
+            <Button color="secondary" size="small" style={{ fontWeight: selectedUnit === 'fahrenheit' ? 'bold' : 'normal' }} onClick={() => changeTemperatureUnit('fahrenheit')}>F</Button>
+
         </div>
     )
 }

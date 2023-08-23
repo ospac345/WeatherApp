@@ -11,6 +11,7 @@ import MyLocationIcon from '@mui/icons-material/MyLocation';
 import WeatherInfo from './WeatherInfo';
 import Button from '@mui/material/Button';
 import TemperatureUnitComponent from "./TemperatureUnitComponent";
+import { localhostURL } from "../constants/constants";
 
 
 const CitySearch = () => {
@@ -19,6 +20,7 @@ const CitySearch = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [tempUnit, setTempUnit] = useState('celsius');
 
+    console.log(localhostURL);
     const changeTemperatureUnit = (tempUnitValue) => {
         setTempUnit(tempUnitValue);
     }
@@ -26,7 +28,7 @@ const CitySearch = () => {
     useEffect(() => {
         const fetchSuggestions = async () => {
             try {
-                const response = await fetch('http://192.168.1.105:3001/api', {
+                const response = await fetch(localhostURL + '/api', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -37,6 +39,7 @@ const CitySearch = () => {
                     const data = await response.json();
                     if (data) {
                         setSuggestions([...data.geonames]);
+                        console.log(data.geonames);
                     } else {
                         setSuggestions([]);
                     }
@@ -69,7 +72,7 @@ const CitySearch = () => {
                 lng: longitude,
             };
 
-            fetch("http://192.168.1.105:3001/api/coords", {
+            fetch(localhostURL + "/api/coords", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CurrentWeatherBox from './CurrentWeatherBox';
+import { localhostURL } from "../constants/constants";
 
 
 const WeatherInfo = (props) => {
@@ -13,7 +14,7 @@ const WeatherInfo = (props) => {
         const fetchWeather = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://192.168.1.105:3001/api/weather', {
+                const response = await fetch(localhostURL + '/api/weather', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -5,17 +5,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import CustomizedMenus from './CustomizedMenu';
 
-const drawerWidth = 240;
-
 
 function DrawerAppBar(props) {
-    const { window } = props;
-
-
-    const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', paddingBottom: 5 }}>
             <CssBaseline />
             <AppBar component="nav">
                 <Toolbar>
@@ -27,15 +21,8 @@ function DrawerAppBar(props) {
                     <div style={{ marginLeft: 'auto' }}>
                         <CustomizedMenus />
                     </div>
-
                 </Toolbar>
-
-
             </AppBar>
-
-            <Box component="main" sx={{ p: 1 }}>
-                <Toolbar />
-            </Box>
         </Box>
     );
 }

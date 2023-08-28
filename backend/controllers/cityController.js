@@ -5,7 +5,7 @@ async function searchCities(req, res) {
     const query = req.body.value;
     try {
         const response = await fetch(
-            `http://api.geonames.org/searchJSON?q=${encodeURIComponent(query)}&maxRows=20&username=simam202`
+            `http://api.geonames.org/searchJSON?q=${encodeURIComponent(query)}&maxRows=5&username=simam202`
         );
         const data = await response.json();
         res.json(data);

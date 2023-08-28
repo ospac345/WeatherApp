@@ -5,12 +5,15 @@ import '../styleSheets/WeatherIconStyles.css'
 import DrawerAppBar from './header/DrawerAppBar';
 import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import HeroSection from './header/HeroSection';
+import CitySearchProvider from './context/CitySearchContext';
+import FooterComponent from './footer/FooterComponent';
 
 export const ColorModeContext = React.createContext();
 
 function MainPage() {
 
-    const [mode, setMode] = React.useState('dark');
+    const [mode, setMode] = React.useState('light');
 
     const colorMode = React.useMemo(
         () => ({
@@ -44,13 +47,15 @@ function MainPage() {
                             justifyContent: 'center',
                             bgcolor: 'background.default',
                             color: 'text.primary',
-                            borderRadius: 1,
-                            p: 3,
                         }}
                     >
-                        <Container maxWidth="sm" style={{ padding: 10 }}>
-                            <DrawerAppBar />
-                            <CitySearch />
+                        <Container maxWidth="xl" style={{}} disableGutters>
+                            <CitySearchProvider>
+                                <DrawerAppBar />
+                                <CitySearch />
+                                <HeroSection />
+                                <FooterComponent />
+                            </CitySearchProvider>
                         </Container>
                     </Box>
                 </ThemeProvider>

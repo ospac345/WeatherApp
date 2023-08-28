@@ -7,8 +7,11 @@ import Divider from '@mui/material/Divider';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
+import Check from '@mui/icons-material/Check';
 import { useTheme } from '@mui/material/styles';
-import { ColorModeContext } from '../MainPage'; // Adjust the path as needed
+import { ColorModeContext } from '../MainPage';
+
 
 
 const StyledMenu = styled((props) => (
@@ -97,13 +100,12 @@ export default function CustomizedMenus() {
 
                 <MenuItem onClick={colorMode.toggleColorMode} color="inherit">
                     {theme1.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                    {theme1.palette.mode} mode
+                    {capitalize(theme1.palette.mode)} mode
                 </MenuItem>
-
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleClose} disableRipple>
-                    f
-                    Archive
+                    <ThermostatIcon />
+                    °C
                 </MenuItem>
             </StyledMenu>
         </div>

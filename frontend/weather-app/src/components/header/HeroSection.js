@@ -1,11 +1,12 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { TypeAnimation } from 'react-type-animation';
 import '../../styleSheets/HeroSectionStyles.css';
 import { styled } from '@mui/system';
 import heroGifImage from '../images/hero-img-4.WEBP'
+
 
 const AnimationContainer = styled('div')({
     fontSize: '2em',
@@ -24,33 +25,10 @@ const HeroImg = styled('img')({
 });
 
 const HeroSection = () => {
-    const [textColor, setTextColor] = useState('red'); // Initial color
-
-    useEffect(() => {
-        const colors = [
-            'blue',
-            'green',
-            'purple',
-            'pink',
-            'brown',
-            'darkmagenta',
-            'darksalmon',
-            'dodgerblue',
-            'firebrick',
-            'darkviolet',
-        ];
-        let i = 0;
-        const interval = setInterval(() => {
-            setTextColor(colors[i]);
-            i++;
-            if (i === colors.length) {
-                i = 0;
-            }
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
+    const [textColor, setTextColor] = useState('blue'); // Initial color
 
     return (
+
         <div>
             <Grid
                 container

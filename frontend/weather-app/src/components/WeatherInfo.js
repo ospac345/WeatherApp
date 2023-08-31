@@ -23,7 +23,6 @@ const WeatherInfo = (props) => {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
                     if (data) {
                         setWeather(data);
                     } else {

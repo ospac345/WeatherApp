@@ -5,6 +5,10 @@ async function fetchWeather(req, res) {
     const lat = req.body.lat;
     const lng = req.body.lng;
     const tempUnit = req.body.tempUnit;
+    console.log('lat', lat);
+    console.log('lng', lng);
+    console.log('tempUnit', tempUnit);
+
     let apiURL;
 
     if (tempUnit === 'fahrenheit') {

@@ -8,9 +8,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
-import Check from '@mui/icons-material/Check';
 import { useTheme } from '@mui/material/styles';
 import { ColorModeContext } from '../MainPage';
+import { useDispatch, useSelector } from "react-redux";
+import { changeTempUnit, fetchWeatherData } from "../../actions/weatherActions";
 
 
 
@@ -58,9 +59,10 @@ const StyledMenu = styled((props) => (
 export default function CustomizedMenus() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-
     const theme1 = useTheme();
     const colorMode = React.useContext(ColorModeContext);
+    const dispatch = useDispatch();
+    const { tempUnit, selectedCity } = useSelector((state) => state.weather);
 
 
     const handleClick = (event) => {
@@ -73,6 +75,29 @@ export default function CustomizedMenus() {
     const capitalize = (str) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
+
+    // Rename the local function
+    const handleTempUnitChange = () => {
+        if (tempUnit === 'celsius') {
+            dispatch(changeTempUnit('fahrenheit'));
+            if (selectedCity !== null) {
+                dispatch(fetchWeatherData(selectedCity.lat, selectedCity.lng, 'fahrenheit'));
+            }
+        } else {
+            dispatch(changeTempUnit('celsius'));
+            if (selectedCity !== null) {
+                dispatch(fetchWeatherData(selectedCity.lat, selectedCity.lng, 'celsius'));
+            }
+        }
+    }
+
+
+    <MenuItem onClick={handleTempUnitChange} disableRipple>
+        <ThermostatIcon />
+        {tempUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}
+    </MenuItem>
+
 
     return (
         <div>
@@ -103,9 +128,9 @@ export default function CustomizedMenus() {
                     {capitalize(theme1.palette.mode)} mode
                 </MenuItem>
                 <Divider sx={{ my: 0.5 }} />
-                <MenuItem onClick={handleClose} disableRipple>
+                <MenuItem onClick={handleTempUnitChange} disableRipple>
                     <ThermostatIcon />
-                    °C
+                    {tempUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}
                 </MenuItem>
             </StyledMenu>
         </div>

@@ -5,9 +5,9 @@ import '../styleSheets/WeatherIconStyles.css'
 import DrawerAppBar from './header/DrawerAppBar';
 import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import HeroSection from './header/HeroSection';
-import CitySearchProvider from './context/CitySearchContext';
+import WeatherDisplay from './WeatherDisplay';
 import FooterComponent from './footer/FooterComponent';
+import HeroSection from './header/HeroSection';
 
 export const ColorModeContext = React.createContext();
 
@@ -50,12 +50,12 @@ function MainPage() {
                         }}
                     >
                         <Container maxWidth="xl" style={{}} disableGutters>
-                            <CitySearchProvider>
-                                <DrawerAppBar />
-                                <CitySearch />
-                                <HeroSection />
-                                <FooterComponent />
-                            </CitySearchProvider>
+
+                            <DrawerAppBar />
+                            <CitySearch />
+                            <WeatherDisplay />
+                            <FooterComponent />
+
                         </Container>
                     </Box>
                 </ThemeProvider>

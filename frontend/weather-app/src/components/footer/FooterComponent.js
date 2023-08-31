@@ -10,9 +10,9 @@ const FooterComponent = () => {
 
     return (
         <footer>
-            <div class="footer_container">
+            <div className="footer_container">
                 <p>Syed Faisal Imam </p>
-                <div class="social_media">
+                <div className="social_media">
                     <IconButton aria-label="linkedin"><LinkedInIcon /></IconButton>
                     <IconButton aria-label="facebook"><FacebookIcon /></IconButton>
                     <IconButton aria-label="github"><GitHubIcon /></IconButton>

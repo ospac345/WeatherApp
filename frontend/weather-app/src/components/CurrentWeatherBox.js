@@ -11,6 +11,8 @@ const CurrentWeatherBox = ({ current_weather, today_min_temperature, today_max_t
     let dayOrNightClass;
     let currentWeatherTime = current_weather.time.split('T')[1]
 
+
+
     const weatherInfo = InterpretWeatherCode(current_weather.weathercode);
     const { dayIcon, nightIcon, weatherTextDay, weatherTextNight } = weatherInfo;
 

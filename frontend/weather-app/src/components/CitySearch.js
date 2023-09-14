@@ -12,20 +12,20 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Divider, IconButton } from "@mui/material";
 import _ from 'lodash';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCityData } from "../actions/cityActions";
+import { fetchCityData, setCityCoordErrorMessage } from "../actions/cityActions";
 import { fetchWeatherData, setSelectedCityData } from "../actions/weatherActions";
 import { localhostURL } from "../constants/constants";
 import axios from "axios";
 
 
-const CitySearch = () => {
+const CitySearch = ({ closeSearchModal }) => {
     const [selectedCity, setSelectedCity] = useState(null);
     const [keyword, setKeyword] = useState('');
     const tempUnit = useSelector((state) => state.weather.tempUnit);
     const cityData = useSelector((state) => state.city.cityData);
     const cityError = useSelector((state) => state.city.error);
+    const isLoading = useSelector((state) => state.city.isLoading);
     const dispatch = useDispatch();
-
 
     const debouncedFetchCityData = _.debounce((keyword) => {
         dispatch(fetchCityData(keyword));
@@ -52,8 +52,8 @@ const CitySearch = () => {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
                     dispatch(fetchWeatherData(latitude, longitude, tempUnit));
+                    closeSearchModal();
                     resolve({ latitude, longitude });
-
                     const requestData = {
                         lat: latitude,
                         lng: longitude,
@@ -70,13 +70,16 @@ const CitySearch = () => {
                         }
                     } catch (error) {
                         console.error("Error fetching city data:", error);
+                        dispatch(setCityCoordErrorMessage(error.message));
                     }
                 } catch (error) {
                     console.error("Error getting geolocation:", error);
                     reject(error);
+                    dispatch(setCityCoordErrorMessage(error.message));
                 }
             } else {
                 reject(new Error("Geolocation not supported"));
+                dispatch(setCityCoordErrorMessage("Geolocation not supported"));
             }
         });
     };
@@ -90,7 +93,7 @@ const CitySearch = () => {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ margin: 5 }}
+                sx={{ marginTop: 5, marginBottom: 3 }}
             >
                 <div style={{ width: 550 }}>
                     <Autocomplete
@@ -138,6 +141,7 @@ const CitySearch = () => {
                             if (newValue) {
                                 dispatch(fetchWeatherData(newValue.lat, newValue.lng, tempUnit));
                                 dispatch(setSelectedCityData(newValue));
+                                closeSearchModal();
                             }
                         }}
                         clearOnEscape={true}
@@ -145,6 +149,8 @@ const CitySearch = () => {
                         renderInput={(params) => (
                             <TextField
                                 {...params}
+                                error={Boolean(cityError)}
+                                helperText={cityError}
                                 label="Search City"
                                 variant="outlined"
                                 fullWidth
@@ -152,7 +158,7 @@ const CitySearch = () => {
                                     ...params.InputProps,
                                     startAdornment: (
                                         <>
-                                            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                                            <IconButton type="button" sx={{ p: '3px' }} aria-label="search">
                                                 <SearchIcon />
                                             </IconButton>
                                             {params.InputProps.startAdornment}
@@ -170,18 +176,12 @@ const CitySearch = () => {
                                 }}
                             />
                         )}
-                        // loading={true}
+                        loading={isLoading}
                         loadingText="Loading..."
                         noOptionsText="No cities found"
                     />
                 </div>
             </Grid>
-
-            {cityError && (
-                <div className="error-message">
-                    <p>{cityError}</p>
-                </div>
-            )}
         </>
     );
 };

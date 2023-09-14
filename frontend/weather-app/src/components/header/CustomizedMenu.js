@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
@@ -12,6 +10,8 @@ import { useTheme } from '@mui/material/styles';
 import { ColorModeContext } from '../MainPage';
 import { useDispatch, useSelector } from "react-redux";
 import { changeTempUnit, fetchWeatherData } from "../../actions/weatherActions";
+import { IconButton } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
 
@@ -33,8 +33,7 @@ const StyledMenu = styled((props) => (
         borderRadius: 6,
         marginTop: theme.spacing(1),
         minWidth: 180,
-        color:
-            theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+        color: theme.palette.mode === 'light' ? '#374151' : theme.palette.grey[300], // Text color based on theme mode
         boxShadow:
             'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
         '& .MuiMenu-list': {
@@ -92,7 +91,6 @@ export default function CustomizedMenus() {
         }
     }
 
-
     <MenuItem onClick={handleTempUnitChange} disableRipple>
         <ThermostatIcon />
         {tempUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}
@@ -101,18 +99,18 @@ export default function CustomizedMenus() {
 
     return (
         <div>
-            <Button
+
+            <IconButton
                 id="demo-customized-button"
                 aria-controls={open ? 'demo-customized-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 variant="contained"
-                disableElevation
                 onClick={handleClick}
-                endIcon={<KeyboardArrowDownIcon />}
             >
-                Options
-            </Button>
+                <MoreVertIcon />
+
+            </IconButton>
             <StyledMenu
                 id="demo-customized-menu"
                 MenuListProps={{

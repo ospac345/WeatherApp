@@ -7,6 +7,8 @@ export const FETCH_WEATHER_FAILURE = 'FETCH_WEATHER_FAILURE';
 export const SET_WEATHER_AVAILABILITY = 'SET_WEATHER_AVAILABILITY';
 export const SET_WEATHER_UNIT = 'SET_WEATHER_UNIT';
 export const SET_SELECTED_CITY = 'SET_SELECTED_CITY';
+export const FETCH_AIR_QUALITY_SUCCESS = 'FETCH_AIR_QUALITY_SUCCESS';
+export const FETCH_AIR_QUALITY_FAILURE = 'FETCH_AIR_QUALITY_FAILURE';
 
 // Action creators
 export const fetchWeatherSuccess = (weatherData) => ({
@@ -34,6 +36,16 @@ export const setSelectedCity = (city) => ({
     payload: city,
 });
 
+export const fetchAirQualitySuccess = (airQualityData) => ({
+    type: FETCH_AIR_QUALITY_SUCCESS,
+    payload: airQualityData,
+});
+
+export const fetchAirQualityFailure = (error) => ({
+    type: FETCH_AIR_QUALITY_FAILURE,
+    payload: error,
+});
+
 // Thunk function
 
 export const changeTempUnit = (tempUnit) => async (dispatch) => {
@@ -41,9 +53,25 @@ export const changeTempUnit = (tempUnit) => async (dispatch) => {
 };
 
 export const setSelectedCityData = (city) => async (dispatch) => {
+    // Dispatch the action to set the selected city
     dispatch(setSelectedCity(city));
-    console.log('selected city from weather actions', city);
+
+    // Get the current list of cities from local storage
+    let selectedCities = JSON.parse(localStorage.getItem('selectedCities')) || [];
+
+    // Check if the city is already in the list
+    const isDuplicate = selectedCities.some(selectedCity => selectedCity.name === city.name);
+
+    if (!isDuplicate) {
+        // Add the new city to the list
+        selectedCities = [city, ...selectedCities.slice(0, 4)];
+
+        // Save the updated list back to local storage
+        localStorage.setItem('selectedCities', JSON.stringify(selectedCities));
+    }
 };
+
+
 
 
 export const fetchWeatherData = (lat, lng, tempUnit) => async (dispatch) => {
@@ -51,25 +79,55 @@ export const fetchWeatherData = (lat, lng, tempUnit) => async (dispatch) => {
         const response = await axios.post(localhostURL + '/api/weather', {
             lat: lat,
             lng: lng,
-            tempUnit: tempUnit
+            tempUnit: tempUnit,
         });
+
         if (response.status === 200) {
             const weatherData = response.data;
-            if (weatherData) {
-                dispatch(fetchWeatherSuccess(response.data));
-                dispatch(setWeatherAvailability(true));
-            } else {
-                dispatch(fetchWeatherSuccess([]));
-            }
+            dispatch(fetchWeatherSuccess(weatherData)); // Dispatch success action
+            dispatch(setWeatherAvailability(true));
         } else {
             throw new Error('Request failed');
         }
     } catch (error) {
-        console.error('Error fetching city names:', error);
-        dispatch(fetchWeatherSuccess([]));
-        dispatch(fetchWeatherFailure(error.message));
+        console.error('Error fetching weather data:', error);
+
+        if (error.response && error.response.data && error.response.data.reason) {
+            const reason = error.response.data.reason;
+            dispatch(fetchWeatherFailure(`Reason: ${reason}`)); // Dispatch failure action with reason
+        } else {
+            dispatch(fetchWeatherFailure('An error occurred while fetching weather data.')); // Dispatch generic failure action
+        }
+        dispatch(setWeatherAvailability(false));
     }
 };
+
+export const fetchAirQualityData = (lat, lng) => async (dispatch) => {
+    try {
+        const response = await axios.post(localhostURL + '/api/airquality', {
+            lat: lat,
+            lng: lng,
+        });
+
+        if (response.status === 200) {
+            const airQualityData = response.data;
+            dispatch(fetchAirQualitySuccess(airQualityData)); // Dispatch success action
+        } else {
+            throw new Error('Request failed');
+        }
+    } catch (error) {
+        console.error('Error fetching air quality data:', error);
+
+        if (error.response && error.response.data && error.response.data.reason) {
+            const reason = error.response.data.reason;
+            dispatch(fetchAirQualityFailure(`Reason: ${reason}`)); // Dispatch failure action with reason
+        } else {
+            dispatch(fetchAirQualityFailure('An error occurred while fetching air quality data.')); // Dispatch generic failure action
+        }
+    }
+}
+
+
 
 
 

@@ -1,21 +1,21 @@
-import React from 'react';
-import CitySearch from './CitySearch';
 import Container from '@mui/material/Container';
-import '../styleSheets/WeatherIconStyles.css'
 import DrawerAppBar from './header/DrawerAppBar';
 import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import WeatherDisplay from './WeatherDisplay';
 import FooterComponent from './footer/FooterComponent';
-import HeroSection from './header/HeroSection';
+import { useState, useEffect, useMemo, createContext } from 'react';
 
-export const ColorModeContext = React.createContext();
+export const ColorModeContext = createContext();
 
 function MainPage() {
+    const [mode, setMode] = useState(localStorage.getItem('theme') || 'light');
 
-    const [mode, setMode] = React.useState('light');
+    useEffect(() => {
+        localStorage.setItem('theme', mode);
+    }, [mode]);
 
-    const colorMode = React.useMemo(
+    const colorMode = useMemo(
         () => ({
             toggleColorMode: () => {
                 setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
@@ -24,16 +24,36 @@ function MainPage() {
         [],
     );
 
-    const theme = React.useMemo(
+    const theme = useMemo(
         () =>
             createTheme({
                 palette: {
                     mode,
+                    primary: {
+                        main: mode === 'light' ? '#3498db' : '#2980b9',
+                    },
+                    secondary: {
+                        main: mode === 'light' ? '#e74c3c' : '#d35400',
+                    },
+                    background: {
+                        default: mode === 'light' ? '#f7f7f7' : '#222222',
+                    },
+                    text: {
+                        primary: mode === 'light' ? '#333333' : '#ffffff',
+                    },
+                    error: {
+                        main: '#FF6347',
+                    },
+                    divider: '#4169E1',
+                    footer: {
+                        background: mode === 'light' ? '#f0f0f0' : '#333333', // Light gray in light mode, Dark gray in dark mode
+                        text: mode === 'light' ? '#555555' : '#cccccc', // Dark gray text in light mode, Light gray text in dark mode
+                    }
                 },
+
             }),
         [mode],
     );
-
 
     return (
         <>
@@ -49,19 +69,15 @@ function MainPage() {
                             color: 'text.primary',
                         }}
                     >
-                        <Container maxWidth="xl" style={{}} disableGutters>
-
+                        <Container maxWidth="xl">
                             <DrawerAppBar />
-                            <CitySearch />
                             <WeatherDisplay />
-                            <FooterComponent />
-
                         </Container>
                     </Box>
+                    <FooterComponent />
                 </ThemeProvider>
             </ColorModeContext.Provider>
         </>
-
     );
 }
 

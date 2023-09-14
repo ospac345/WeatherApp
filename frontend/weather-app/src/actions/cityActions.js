@@ -3,10 +3,16 @@ import axios from 'axios';
 import { localhostURL } from '../constants/constants';
 
 // Action types
+export const FETCH_CITY_DATA_REQUEST = 'FETCH_CITY_DATA_REQUEST';
 export const SET_CITY_DATA = 'SET_CITY_DATA';
 export const SET_CTY_FAILURE = 'SET_CTY_FAILURE';
 
 // Action creators
+
+export const fetchCityDataRequest = () => ({
+    type: FETCH_CITY_DATA_REQUEST,
+});
+
 export const setCityData = (cityData) => ({
     type: SET_CITY_DATA,
     payload: cityData,
@@ -19,6 +25,7 @@ export const setCityFailure = (error) => ({
 
 // Thunk actions
 export const fetchCityData = (keyword) => async (dispatch) => {
+    dispatch(fetchCityDataRequest()); // Dispatch loading request
     try {
         const response = await axios.post(localhostURL + '/api', {
             value: keyword,
@@ -31,14 +38,25 @@ export const fetchCityData = (keyword) => async (dispatch) => {
             } else {
                 dispatch(setCityData([]));
             }
+        } else if (response.status === 404) {
+            // Handle 404 (Not Found) error
+            dispatch(setCityFailure('City not found'));
+        } else if (response.status === 401) {
+            // Handle 401 (Unauthorized) error
+            dispatch(setCityFailure('Unauthorized access to the API'));
         } else {
-            throw new Error('Request failed');
+            // Handle other non-200 status codes
+            throw new Error(`Request failed with status ${response.status}`);
         }
     } catch (error) {
+        // Handle network errors or other unexpected errors
         console.error('Error fetching city names:', error);
-        dispatch(setCityData([]));
-        dispatch(setCityFailure(error.message));
+        dispatch(setCityFailure('Failed to fetch city data'));
     }
+};
+
+export const setCityCoordErrorMessage = (error) => async (dispatch) => {
+    dispatch(setCityFailure(error));
 };
 
 

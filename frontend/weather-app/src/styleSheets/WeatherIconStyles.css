@@ -77,6 +77,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 130px;
 
 }
   .logo {
@@ -85,8 +86,8 @@
     justify-content: center;
     background: linear-gradient(135deg, #4e54c8, #8f94fb);
     height: 37px;
-    width: 137px;
-    border-radius: 8px;
+    border-radius: 5px;
+    padding: auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
   
@@ -102,7 +103,7 @@
   position: relative;
   width: 100%;
   /* Replace $elementWidth with the desired value in pixels */
-  height: 70px /* $elementWidth */;
+  height: 150px /* $elementWidth */;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,7 +119,7 @@
 
 /* Apply opacity(0.4) filter to SVG elements that don't have the class "will-transform" */
 .compass svg:not(.will-transform) {
-  filter: opacity(0.4);
+  filter: opacity(1);
 }
 
 /* .compass-content styles */
@@ -133,14 +134,13 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  /* Replace $elementWidth with the desired value in pixels */
-  font-size:  15px;
+  font-size:  20px;
   font-weight: bold;
 }
 
 .compass-content .unit {
-  /* Replace $elementWidth with the desired value in pixels */
   font-size: 10px;
   font-weight: 100;
 }
 
+/* .weather hourly temp styles */

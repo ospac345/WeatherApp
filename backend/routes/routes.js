@@ -7,6 +7,7 @@ const cityController = require("../controllers/cityController");
 router.post("/api", cityController.searchCities);
 router.post("/api/coords", cityController.searchCityByCoords);
 router.post("/api/weather", controller.fetchWeather);
+router.post("/api/airquality", controller.fetchAirQuality);
 
 router.use(function (req, res) {
     res.status(404);

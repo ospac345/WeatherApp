@@ -25,7 +25,6 @@ const HeroImg = styled('img')({
 });
 
 const HeroSection = () => {
-    const [textColor, setTextColor] = useState('blue'); // Initial color
 
     return (
 
@@ -45,7 +44,7 @@ const HeroSection = () => {
                         style={{ fontSize: '4.2rem', fontWeight: '700', letterSpacing: '0.1em', lineHeight: '1.05' }}
                     > Search for weather in
                     </Typography>
-                    <AnimationContainer style={{ color: textColor }}>
+                    <AnimationContainer style={{ color: '#d35400' }}>
                         <TypeAnimation
                             sequence={[
                                 'London',

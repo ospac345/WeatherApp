@@ -1,5 +1,5 @@
 // weatherReducer.js
-import { FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAILURE, SET_WEATHER_AVAILABILITY, SET_WEATHER_UNIT, SET_SELECTED_CITY } from '../actions/weatherActions';
+import { FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAILURE, SET_WEATHER_AVAILABILITY, SET_WEATHER_UNIT, SET_SELECTED_CITY, FETCH_AIR_QUALITY_SUCCESS, FETCH_AIR_QUALITY_FAILURE } from '../actions/weatherActions';
 
 // Initial state
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
     isWeatherDataAvailable: false,
     tempUnit: 'celsius',
     selectedCity: null,
+    airQualityData: null,
 };
 
 // Reducer function
@@ -37,6 +38,16 @@ const weatherReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedCity: action.payload,
+            };
+        case FETCH_AIR_QUALITY_SUCCESS:
+            return {
+                ...state,
+                airQualityData: action.payload,
+            };
+        case FETCH_AIR_QUALITY_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
             };
         default:
             return state;

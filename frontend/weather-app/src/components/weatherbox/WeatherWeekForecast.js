@@ -1,6 +1,6 @@
 
 import { Typography, Box, Grid, Card, CardContent } from '@mui/material';
-import InterpretWeatherCode from '../InterpretWeatherCode';
+import InterpretWeatherCode from './InterpretWeatherCode';
 import { WiSunrise, WiSunset } from "react-icons/wi";
 import { useTheme } from '@mui/material/styles';
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from "react-redux";
 import { Typography, Grid, Box, Paper } from '@mui/material';
-import WindCompass from '../WindCompass';
+import WindCompass from './WindCompass';
 import { WiStrongWind } from 'react-icons/wi';
 import { useTheme } from '@mui/material/styles';
 import AirQualityBox from './AirQualityBox';

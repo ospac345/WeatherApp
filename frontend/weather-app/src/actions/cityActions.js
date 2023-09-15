@@ -1,6 +1,5 @@
 // cityActions.js
 import axios from 'axios';
-import { localhostURL } from '../constants/constants';
 
 // Action types
 export const FETCH_CITY_DATA_REQUEST = 'FETCH_CITY_DATA_REQUEST';
@@ -27,7 +26,7 @@ export const setCityFailure = (error) => ({
 export const fetchCityData = (keyword) => async (dispatch) => {
     dispatch(fetchCityDataRequest()); // Dispatch loading request
     try {
-        const response = await axios.post(localhostURL + '/api', {
+        const response = await axios.post('/api', {
             value: keyword,
         });
 

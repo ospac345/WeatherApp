@@ -1,11 +1,15 @@
 // Desc: Controller for city data
 const fetch = require('node-fetch');
+require('dotenv').config();
+
+
+const apiKey = process.env.GEOJSON_API_KEY;
 
 async function searchCities(req, res) {
     const query = req.body.value;
     try {
         const response = await fetch(
-            `http://api.geonames.org/searchJSON?q=${encodeURIComponent(query)}&maxRows=5&username=simam202`
+            `http://api.geonames.org/searchJSON?q=${encodeURIComponent(query)}&maxRows=5&username=${apiKey}`
         );
 
         if (!response.ok) {
@@ -40,7 +44,7 @@ async function searchCityByCoords(req, res) {
     const lng = req.body.lng;
     try {
         const response = await fetch(
-            `http://api.geonames.org/findNearbyPlaceNameJSON?lat=${lat}&lng=${lng}&username=simam202`
+            `http://api.geonames.org/findNearbyPlaceNameJSON?lat=${lat}&lng=${lng}&username=${apiKey}`
         );
 
         if (!response.ok) {

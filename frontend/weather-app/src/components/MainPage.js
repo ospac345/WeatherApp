@@ -2,9 +2,9 @@ import Container from '@mui/material/Container';
 import DrawerAppBar from './header/DrawerAppBar';
 import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import WeatherDisplay from './WeatherDisplay';
 import FooterComponent from './footer/FooterComponent';
 import { useState, useEffect, useMemo, createContext } from 'react';
+import WeatherDisplay from './weatherbox/WeatherDisplay';
 
 export const ColorModeContext = createContext();
 

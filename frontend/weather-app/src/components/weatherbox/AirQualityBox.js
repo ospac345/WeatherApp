@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { Typography, Grid, CircularProgress, Box, Paper } from '@mui/material';
+import { Typography, CircularProgress, Box } from '@mui/material';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { fetchAirQualityData } from "../../actions/weatherActions";

@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Typography, Grid, Box, Paper } from '@mui/material';
 import { useDraggable } from "react-use-draggable-scroll";
-import InterpretWeatherCode from '../InterpretWeatherCode';
 import { useTheme } from '@mui/material/styles';
 import { WiRaindrop } from 'react-icons/wi';
 import '../../styleSheets/WeatherIconStyles.css';
+import InterpretWeatherCode from './InterpretWeatherCode';
 
 const WeatherHourlyTemp = () => {
     const weatherData = useSelector((state) => state.weather.weatherData);

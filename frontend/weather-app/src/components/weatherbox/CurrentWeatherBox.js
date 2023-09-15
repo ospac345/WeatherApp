@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styleSheets/WeatherIconStyles.css';
+import '../../styleSheets/WeatherIconStyles.css';
 import { Grid, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import LocalTimeComponent from './LocalTimeComponent';

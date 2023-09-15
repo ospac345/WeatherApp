@@ -57,7 +57,6 @@ async function fetchAirQuality(req, res) {
 
         const data = await response.json();
         res.json(data);
-        console.log(data);
     } catch (error) {
         console.error('Error:', error.message);
         res.status(500).json({ error: 'Failed to fetch air quality data' });

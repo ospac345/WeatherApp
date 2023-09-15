@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { localhostURL } from '../constants/constants';
 
 // Action types
 export const FETCH_WEATHER_SUCCESS = 'FETCH_WEATHER_SUCCESS';
@@ -76,7 +75,7 @@ export const setSelectedCityData = (city) => async (dispatch) => {
 
 export const fetchWeatherData = (lat, lng, tempUnit) => async (dispatch) => {
     try {
-        const response = await axios.post(localhostURL + '/api/weather', {
+        const response = await axios.post('/api/weather', {
             lat: lat,
             lng: lng,
             tempUnit: tempUnit,
@@ -104,7 +103,7 @@ export const fetchWeatherData = (lat, lng, tempUnit) => async (dispatch) => {
 
 export const fetchAirQualityData = (lat, lng) => async (dispatch) => {
     try {
-        const response = await axios.post(localhostURL + '/api/airquality', {
+        const response = await axios.post('/api/airquality', {
             lat: lat,
             lng: lng,
         });

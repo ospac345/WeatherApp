@@ -1,4 +1,4 @@
-import '../styleSheets/WeatherIconStyles.css';
+import '../../styleSheets/WeatherIconStyles.css';
 import { useTheme } from '@mui/material/styles';
 
 const WindCompass = ({ windDirection, windSpeed }) => {

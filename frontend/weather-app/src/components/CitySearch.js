@@ -51,8 +51,6 @@ const CitySearch = ({ closeSearchModal }) => {
                     });
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
-                    dispatch(fetchWeatherData(latitude, longitude, tempUnit));
-                    closeSearchModal();
                     resolve({ latitude, longitude });
                     const requestData = {
                         lat: latitude,
@@ -64,7 +62,9 @@ const CitySearch = ({ closeSearchModal }) => {
                         if (response.status === 200) {
                             const data = response.data;
                             setSelectedCity(data.geonames[0]);
+                            dispatch(fetchWeatherData(latitude, longitude, tempUnit));
                             dispatch(setSelectedCityData(data.geonames[0]));
+                            closeSearchModal();
                         } else {
                             throw new Error("Request failed");
                         }

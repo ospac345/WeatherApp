@@ -2,13 +2,13 @@ import { useSelector } from 'react-redux';
 import Slide from '@mui/material/Slide';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import CurrentWeatherBox from './CurrentWeatherBox';
-import HeroSection from './header/HeroSection';
-import WeatherWeekForecast from './weatherbox/WeatherWeekForecast';
-import WeatherHourlyTemp from './weatherbox/WeatherHourlyTemp';
-import WindCompassAirQualityBox from './weatherbox/WindCompassAirQualityBox';
-import WeatherCharts from './weatherbox/WeatherCharts';
+import HeroSection from '../header/HeroSection';
+import WeatherWeekForecast from './WeatherWeekForecast';
+import WeatherHourlyTemp from './WeatherHourlyTemp';
+import WindCompassAirQualityBox from './WindCompassAirQualityBox';
+import WeatherCharts from './WeatherCharts';
 import { Typography } from '@mui/material';
+import CurrentWeatherBox from './CurrentWeatherBox';
 
 
 const WeatherDisplay = () => {

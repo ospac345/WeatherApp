@@ -1,6 +1,5 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { TypeAnimation } from 'react-type-animation';
 import '../../styleSheets/HeroSectionStyles.css';

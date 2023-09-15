@@ -6,6 +6,7 @@ require('dotenv').config();
 const apiKey = process.env.GEOJSON_API_KEY;
 
 async function searchCities(req, res) {
+    console.log(apiKey)
     const query = req.body.value;
     try {
         const response = await fetch(

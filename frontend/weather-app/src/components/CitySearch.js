@@ -14,7 +14,6 @@ import _ from 'lodash';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCityData, setCityCoordErrorMessage } from "../actions/cityActions";
 import { fetchWeatherData, setSelectedCityData } from "../actions/weatherActions";
-import { localhostURL } from "../constants/constants";
 import axios from "axios";
 
 
@@ -58,7 +57,7 @@ const CitySearch = ({ closeSearchModal }) => {
                     };
 
                     try {
-                        const response = await axios.post(localhostURL + "/api/coords", requestData);
+                        const response = await axios.post("/api/coords", requestData);
                         if (response.status === 200) {
                             const data = response.data;
                             setSelectedCity(data.geonames[0]);

@@ -21,7 +21,12 @@ const WeatherDisplay = () => {
     if (error) {
         return (
             <div>
-                <p>An error occurred: {error}</p>
+                <strong>
+                    An Error Occurred:
+                </strong>
+                <p>
+                    {error}
+                </p>
             </div>
         );
     }

@@ -45,8 +45,7 @@ export const fetchAirQualityFailure = (error) => ({
     payload: error,
 });
 
-// Thunk function
-
+// Thunk functions
 export const changeTempUnit = (tempUnit) => async (dispatch) => {
     dispatch(setWeatherUnit(tempUnit));
 };
@@ -70,9 +69,6 @@ export const setSelectedCityData = (city) => async (dispatch) => {
     }
 };
 
-
-
-
 export const fetchWeatherData = (lat, lng, tempUnit) => async (dispatch) => {
     try {
         const response = await axios.post('/api/weather', {
@@ -89,13 +85,12 @@ export const fetchWeatherData = (lat, lng, tempUnit) => async (dispatch) => {
             throw new Error('Request failed');
         }
     } catch (error) {
-        console.error('Error fetching weather data:', error);
-
+        // console.error('Error fetching weather data:', error);
         if (error.response && error.response.data && error.response.data.reason) {
             const reason = error.response.data.reason;
             dispatch(fetchWeatherFailure(`Reason: ${reason}`)); // Dispatch failure action with reason
         } else {
-            dispatch(fetchWeatherFailure('An error occurred while fetching weather data.')); // Dispatch generic failure action
+            dispatch(fetchWeatherFailure('Failed to fetch weather data. Please try again later.')); // Dispatch generic failure action
         }
         dispatch(setWeatherAvailability(false));
     }

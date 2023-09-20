@@ -12,19 +12,26 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Divider, IconButton } from "@mui/material";
 import _ from 'lodash';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCityData, setCityCoordErrorMessage } from "../actions/cityActions";
+import { fetchCityData, setCityCoordErrorMessage, setErrorToNull, setCityData } from "../actions/cityActions";
 import { fetchWeatherData, setSelectedCityData } from "../actions/weatherActions";
 import axios from "axios";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 const CitySearch = ({ closeSearchModal }) => {
-    const [selectedCity, setSelectedCity] = useState(null);
     const [keyword, setKeyword] = useState('');
     const tempUnit = useSelector((state) => state.weather.tempUnit);
     const cityData = useSelector((state) => state.city.cityData);
     const cityError = useSelector((state) => state.city.error);
     const isLoading = useSelector((state) => state.city.isLoading);
     const dispatch = useDispatch();
+
 
     const debouncedFetchCityData = _.debounce((keyword) => {
         dispatch(fetchCityData(keyword));
@@ -36,6 +43,13 @@ const CitySearch = ({ closeSearchModal }) => {
             return debouncedFetchCityData.cancel;
         }
     }, [keyword]);
+
+    const handleSnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        dispatch(setErrorToNull());
+    };
 
 
     const handleMyLocation = () => {
@@ -60,7 +74,6 @@ const CitySearch = ({ closeSearchModal }) => {
                         const response = await axios.post("/api/coords", requestData);
                         if (response.status === 200) {
                             const data = response.data;
-                            setSelectedCity(data.geonames[0]);
                             dispatch(fetchWeatherData(latitude, longitude, tempUnit));
                             dispatch(setSelectedCityData(data.geonames[0]));
                             closeSearchModal();
@@ -68,12 +81,11 @@ const CitySearch = ({ closeSearchModal }) => {
                             throw new Error("Request failed");
                         }
                     } catch (error) {
-                        console.error("Error fetching city data:", error);
+                        console.error("Error fetching coordinates data:", error);
                         dispatch(setCityCoordErrorMessage(error.message));
                     }
                 } catch (error) {
-                    console.error("Error getting geolocation:", error);
-                    reject(error);
+                    // reject(error);
                     dispatch(setCityCoordErrorMessage(error.message));
                 }
             } else {
@@ -94,13 +106,19 @@ const CitySearch = ({ closeSearchModal }) => {
                 alignItems="center"
                 sx={{ marginTop: 5, marginBottom: 3 }}
             >
+                <Snackbar sx={{ minWidth: '80%' }} open={Boolean(cityError)} autoHideDuration={6000} onClose={handleSnackbarClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} >
+                    <Alert severity="error" onClose={handleSnackbarClose} sx={{ width: '100%' }}>
+                        {cityError}
+                    </Alert>
+                </Snackbar>
+
                 <div style={{ width: 550 }}>
                     <Autocomplete
-                        freeSolo
+                        forcePopupIcon={false}
+                        autoHighlight
                         fullWidth
-                        value={selectedCity}
                         options={cityData}
-                        isOptionEqualToValue={(option, value) => option?.geonameId === value?.geonameId}
+                        isOptionEqualToValue={(option, value) => option.geonameId === value.geonameId}
                         renderOption={(props, option, index) => {
                             const matches = match(option.name, keyword, { insideWords: true });
                             const parts = parse(option.name, matches);
@@ -133,6 +151,7 @@ const CitySearch = ({ closeSearchModal }) => {
                                 </li>
                             );
                         }}
+                        inputValue={keyword}
                         onInputChange={(event, newInputValue) => {
                             setKeyword(newInputValue);
                         }}
@@ -144,13 +163,11 @@ const CitySearch = ({ closeSearchModal }) => {
                             }
                         }}
                         clearOnEscape={true}
-                        getOptionLabel={(option) => option.name + ", " + option.countryName}
+                        getOptionLabel={(option) => option.name}
                         renderInput={(params) => (
                             <TextField
                                 {...params}
-                                error={Boolean(cityError)}
-                                helperText={cityError}
-                                label="Search City"
+                                label="Search for a place"
                                 variant="outlined"
                                 fullWidth
                                 InputProps={{
@@ -177,7 +194,20 @@ const CitySearch = ({ closeSearchModal }) => {
                         )}
                         loading={isLoading}
                         loadingText="Loading..."
-                        noOptionsText="No cities found"
+                        noOptionsText={
+                            keyword.length >= 2
+                                ? "No results found"
+                                : "Type at least 2 characters to search"
+                        }
+                        onOpen={() => {
+                            setKeyword('');
+                            dispatch(setErrorToNull());
+                        }}
+                        onClose={() => {
+                            setKeyword('');
+                            dispatch(setErrorToNull());
+                            dispatch(setCityData([]));
+                        }}
                     />
                 </div>
             </Grid>

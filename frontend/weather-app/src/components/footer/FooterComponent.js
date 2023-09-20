@@ -29,6 +29,7 @@ const FooterComponent = () => {
                         <Typography variant="caption" display="block" gutterBottom>
                             WeatherWise is a responsive web application designed to provide up-to-date weather information for any location. This app serves as a portfolio project and is not intended for commercial use.
                         </Typography>
+                        <Link href="https://github.com/ospac345/WeatherApp" target="_blank" rel="noopener noreferrer">Github Repository</Link>
                     </div>
                     <Divider />
                     <Typography variant='body2' sx={{ fontWeight: 'bold' }}>
@@ -49,7 +50,7 @@ const FooterComponent = () => {
                             Weather and Air Quality Data by <Link href="https://open-meteo.com" target="_blank" rel="noopener noreferrer">Open-Meteo</Link>.
                         </Typography>
                         <Typography variant='body2'>
-                            City Search provided by <Link href="https://geojson.org/" target="_blank" rel="noopener noreferrer">geojson</Link>
+                            City Search provided by <Link href="https://geojson.org/" target="_blank" rel="noopener noreferrer">GeoJson</Link>
                         </Typography>
                         <Typography variant='body2'>
                             The Weather Icons are provided by <Link href="https://openweathermap.org/weathermap" target="_blank" rel="noopener noreferrer">OpenWeatherMap</Link> and sourced from <Link href='https://gist.github.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c' target='_blank'>stellasphere</Link> repository.
@@ -103,7 +104,7 @@ const FooterComponent = () => {
             </Grid>
             <Grid>
                 <Typography variant='body2' sx={{ textAlign: 'center' }} gutterBottom>
-                    Syed Faisal Imam 2023 © All Rights Reserved
+                    © 2023 Syed Faisal Imam | This code is open for reuse. Contact me at my email for permission.
                 </Typography>
             </Grid>
         </footer >
